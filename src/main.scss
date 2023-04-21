@@ -11,7 +11,7 @@ $unit: 8px;
 
 /* Functions */
 @function size($value){
-    @return $value * $unit
+    @return $value * $unit;
 }
 
 /* Mixing */
@@ -23,15 +23,38 @@ $unit: 8px;
     background-color: $background-color;
     color: $color;
     border-radius: 50px;
-    padding: 20px 3px;
+    padding: 20px 30px;
     text-align: center;
     display: flex;
     align-items: center;
     justify-content: space-around;
-    @if($bold == true){
+    @if($bold == 'true'){
         font-weight: bolder;
     }
 }
+
+/* creating different styles with the for loop */
+@for $i from 1 to $limit{
+    // we use the "#" symbol to convert to text
+    .m-#{$i}{
+        margin: $i * $unit;
+    }
+
+    .p-#{$i}{
+        padding: $i * $unit;
+    }
+    .py-#{$i}{
+        padding: $i * $unit 0;
+    }
+}
+
+@for $i from 1 to 4{
+    // we use the "#" symbol to convert to text
+    .w-#{$i}{
+        width: $i * 25%;
+    }
+}
+
 *{
     @include reset-pm();
     box-sizing: border-box;
@@ -52,15 +75,6 @@ h3{
     font-weight: lighter;
     font-size: size(3);
 }
-.container{
-    background-color: white;
-    margin: 100px auto;
-    width: 1280px;
-    padding: 50px;
-    box-shadow: 0 0 20px 2px rgba(0,0,0,0.1);
-    background-image: url(../public/img1.jpg);
-    background-size: 100% 100%;
-}
 ul{
     @include reset-pm();
     list-style: none;
@@ -68,7 +82,70 @@ ul{
     gap: 20px;
     li{
         a{
-            @include btn($primary-color, $secondary-color, 'true') /* mixing with parameters */
+            @include btn($terciary-color, $font-color, 'true'); /* mixing with parameters */
+            transition: ease-in .1s;
+            &:hover{
+                @include btn($secondary-color, $terciary-color, 'false');
+                box-shadow: $box-shadow;
+            }
         }
+    }
+}
+header{
+    nav{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+}
+.container{
+    background-color: white;
+    margin: 100px auto;
+    width: 1280px;
+    padding: 50px;
+    box-shadow: 0 0 20px 2px rgba(0,0,0,0.1);
+    background-image: url(../bckg.jpg);
+    background-size: 100% 100%;
+}
+.btn{
+    &.btn-cta{
+        @include btn($primary-color, $secondary-color, 'true');
+        &:hover{
+            @include btn($secondary-color, $terciary-color, 'true');
+            box-shadow: $box-shadow;
+        }
+    }
+    &:hover{
+        @include btn($terciary-color, $secondary-color, 'true');
+        box-shadow: $box-shadow;
+    }
+}
+.row{
+    display: flex;
+    align-items: center;
+    .col{
+        width: 50%;
+    }
+    .col-30{
+        width: 30%;
+    }
+    .col-70{
+        width: 70%;
+    }
+}
+.m-auto{
+    margin: 0 auto;
+}
+
+.prices{
+    .prev{
+        font-size: size(2);
+        font-weight: bolder;
+        color: $font-color;
+        text-decoration: line-through;
+    }
+    .now{
+        font-size: size(5);
+        font-weight: bolder;
     }
 }
